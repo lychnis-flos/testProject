@@ -126,8 +126,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ALLOWED_HOSTS = [
-    'testproject-suyt.onrender.com',
-    'localhost',
+    'testproject-suyt.onrender.com', 
+    'localhost', 
     '127.0.0.1'
 ]
 
