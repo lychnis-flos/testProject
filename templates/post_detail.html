@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ post.title }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ post.content }}</p> </div>
+        <div class="card-footer text-muted">
+            投稿者: {{ post.author.username }} ({{ post.created_at }})
+        </div>
+    </div>
+    {% if user == post.author %}
+    <div class="card-footer">
+        <a href="{% url 'post_edit' post.pk %}">編集</a>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'post_delete' post.pk %}">削除</a>
+    </div>
+{% endif %}
+{% endblock content %}

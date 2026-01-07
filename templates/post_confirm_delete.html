@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>タイムライン</title>
+</head>
+
+<body>
+    <p>「{{ post.content }}」を本当に削除しますか？</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">はい、削除します</button>
+        <a href="{% url 'post_detail' post.pk %}">いいえ、キャンセルします</a>
+    </form>
+</body>
+
+</html>

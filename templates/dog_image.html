@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>今日のわんこ</title>
+</head>
+<body>
+    <h1>ランダムわんこ画像</h1>
+    
+    {% if error_message %}
+        <p style="color: red;">エラー: {{ error_message }}</p>
+    {% endif %}
+
+    {% if image_url %}
+        <img src="{{ image_url }}" alt="ランダムな犬の画像" style="max-width: 400px; height: auto;">
+        <br><br>
+    {% else %}
+        <p>画像を取得できませんでした。</p>
+    {% endif %}
+    
+    <form action="." method="get">
+        <button type="submit">新しい画像を見る</button>
+    </form>
+</body>
+</html>

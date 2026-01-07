@@ -1,0 +1,70 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{% for post in posts %}
+{% if query %}
+<h2>「{{ query }}」の検索結果</h2>
+{% endif %}
+<div class="card mb-3">
+    <button class="btn btn-outline-primary like-btn" data-pk="{{ post.pk }}">
+        {% if request.user in post.likes.all %}
+        いいね解除
+        {% else %}
+        いいね
+        {% endif %}
+    </button>
+
+    <div class="card-header">
+        {{ post.title }}
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{ post.content }}</p> </div>
+    <div class="card-footer text-muted">
+        投稿者: {{ post.author.username }} ({{ post.created_at }})
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'post_detail' post.pk %}">続きを読む</a>
+        <span id="like-count-{{ post.pk }}">{{ post.total_likes }}</span> いいね
+    </div>
+</div>
+{% endfor %}
+
+{% if not posts %}
+<p>該当する投稿はありませんでした。</p>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const likeBtns = document.querySelectorAll('.like-btn');
+
+    likeBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            const postId = this.dataset.pk;
+            const url = `/post/${postId}/like/`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(`like-count-${postId}`).textContent = data.count;
+                this.classList.toggle('btn-outline-primary');
+                this.classList.toggle('btn-primary');
+                if (data.liked) {
+                    this.textContent = 'いいね解除';
+                } else {
+                    this.textContent = 'いいね';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        テンプレートのテスト
+    </title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+    <p>{{message}}</p>
+    
+    <h2>好きな食べ物リスト</h2>
+    <ul>
+        {% for food in food_list %}
+            <li>{{ food }}</li>
+        {% endfor %}
+    </ul>     
+</body>
+</html>

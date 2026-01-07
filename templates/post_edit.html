@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>タイムライン</title>
+</head>
+<body>
+<h1>タイムライン</h1>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">編集</button>
+</body>
+</html>
